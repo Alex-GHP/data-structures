@@ -1,2 +1,3 @@
 # data-structures
-learning-repo
+
+This is a learning repository for understanding data structures.
