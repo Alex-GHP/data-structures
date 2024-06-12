@@ -5,63 +5,88 @@ class BSTNode:
         self.val = val
 
     def insert(self, val):
-        if self.val is None:
+        if self.val == None:
             self.val = val
-            return
-
-        if self.val is val:
+        
+        if self.val == val:
             return
         
         if val < self.val:
-            if self.left is None:
-                self.left = BSTNode(val)
-            else:
+            if self.left:
                 self.left.insert(val)
-        else:
-            if self.right is None:
-                self.right = BSTNode(val)
-            else:
+            self.left = BSTNode(val)
+
+        if val > self.val:
+            if self.right:
                 self.right.insert(val)
+            self.right = BSTNode(val)
 
     def get_min(self):
         current = self
         while current.left is not None:
             current = current.left
-        return current
+        return current.val
     
     def get_max(self):
         current = self
         while current.right is not None:
             current = current.right
-        return current
+        return current.val
     
     def delete(self, val):
-        if self.val is None:
-            return None
-        
         if val < self.val:
             if self.left:
-                self.left = self.left.delete(val)
-            return self
-        if val > self.val:
+                self.left = self.left.delete(val) 
+
+        elif val > self.val:
             if self.right:
                 self.right = self.right.delete(val)
-            return self
-        
-        if not self.right: 
-            return self.left
-        if not self.left:   
-            return self.right
-        
-        min_node = self.right.get_min() 
-        self.val = min_node.val        
-        self.right = self.right.delete(min_node.val) 
+
+        else: 
+            if self.left is None: 
+                return self.right
+            elif self.right is None: 
+                return self.left
+            else: 
+                successor = self.right.get_min()  
+                self.val = successor  
+                self.right = self.right.delete(successor)  
+
         return self
     
     def reverse(self):
-        if self:
-            self.right, self.left = self.left, self.right
-            if self.right:
-                self.right.reverse()
-            if self.left:
-                self.left.reverse()
+        self.left, self.right = self.right, self.left
+        if self.left:
+            self.left.reverse()
+        if self.right:
+            self.right.reverse()
+
+    def preorder(self, visited):
+        visited.append(self.val)
+        if self.left:
+            self.left.preorder(visited)
+        if self.right:
+            self.right.preorder(visited)
+    
+    def postorder(self, visited):
+        if self.left:
+            self.left.postorder(visited)
+        if self.right:
+            self.right.postoder(visited)
+        visited.append(self.val)
+
+    def inorder(self, visited):
+        if self.left:
+            self.left.inorder(visited)
+        visited.append(self.val)
+        if self.right:
+            self.right.inorder(visited)
+
+    def exists(self, val):
+        if self.val == val:
+            return True
+        if self.left and self.left.exists(val):
+            return True
+        if self.right and self.right.exists(val):
+            return True
+        return False        
