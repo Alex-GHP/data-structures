@@ -89,4 +89,14 @@ class BSTNode:
             return True
         if self.right and self.right.exists(val):
             return True
-        return False        
+        return False
+
+    def height(self):
+        left_height, right_height = 0, 0
+        if self.val is None:
+            return 0
+        if self.left:
+            left_height = self.left.height()
+        if self.right:
+            right_height = self.right.height()
+        return max(left_height, right_height) + 1        
