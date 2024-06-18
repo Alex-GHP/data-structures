@@ -49,4 +49,17 @@ class Trie:
                 if self.end_symbol in level:
                     matches.add(document[i : j + 1])
         return matches
+    
+    def longest_common_prefix(self):
+        current = self.root
+        prefix = ""
+        while True:
+            if self.end_symbol in current:
+                return prefix
+            if len(current) == 1:
+                letter = list(current.keys())[0]
+                prefix += letter
+                current = current[letter]
+            else:
+                return prefix
         
