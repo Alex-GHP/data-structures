@@ -17,3 +17,11 @@ class Graph:
     def adjacent_nodes(self, node):
         return list(self.graph[node])
     
+
+    def unconnected_vertices(self)
+        unconnected = []
+        for key, values in self.graph.items():
+            if not values:
+                unconnected.append(key)
+        return unconnected
+    
