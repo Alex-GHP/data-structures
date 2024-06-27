@@ -1,5 +1,5 @@
 class Graph:
-    def __init__(self, num_vertices):
+    def __init__(self):
         self.graph = {}
 
 
